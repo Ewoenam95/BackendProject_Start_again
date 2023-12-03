@@ -5,13 +5,21 @@ import AuthUser from '../middleware/AuthUser.js'
 import Validator from '../Validator/validator.js'
 import UpdatingUser from '../controller/UpdateUser.js'
 import userRemove from '../controller/delete.js'
-
+import utilities from '../utilities/forgotPassword.js'
 
 const router = express.Router()
-router.post('/users/user-registrations',Validator,Controller)
-router.post('/login-user',Validator,AuthUser.AuthUser,LoggingUser)
+router.post('/user-registrations',Validator,Controller)
+
+router.post('/login-user',Validator,AuthUser.AuthUser,LoggingUser.LoggingUser)
+
 router.put('/update-user/:id',Validator,AuthUser.TokenVerification,UpdatingUser)
+
 router.delete('/delete-user/:id',AuthUser.TokenVerification,userRemove)
 
+router.post('/forgot-password', utilities.forgotPassword)
+
+router.patch('/reset-password/:token',utilities.resetPassword)
+// teacher login route
+router.post('/teacher-login',Validator,AuthUser.LoginTeacher,LoggingUser.LoginInTeacher)
 
 export default router

@@ -1,4 +1,8 @@
 import Registeration from "../Service/Registration.js"
+import nodemailer from "nodemailer"
+import * as dotenv from "dotenv"
+dotenv.config()
+
 
 
 
@@ -19,4 +23,5 @@ const Registeruser = async(req,res)=>{
 
 
 }
+
 export default Registeruser

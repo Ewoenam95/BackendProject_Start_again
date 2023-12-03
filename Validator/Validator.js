@@ -26,7 +26,7 @@ const schema = joi.object({
     }),
     password:joi.string().trim().min(8).pattern(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%&*])[a-zA-Z!@#$%&*]/).messages({
         "any.required":"password cant be left empty",
-        "string.min":"password shoul have at least 8 characters",
+        "string.min":"password should have at least 8 characters",
         "string.pattern.base":"password should contain at least one number,letter and special characters !, @, #,$ ,% ,& , *,"
     }),
     confirmPassword:joi.string().trim().min(8).pattern(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%&*])[a-zA-Z!@#$%&*]/).messages({
@@ -50,7 +50,7 @@ const Validator = async (req,res,next)=>{
     const {error} =  schema.validate(req.body,{abortEarly:false})
     if(error){
         const errorDetails = error.details.map(details=>details.message)
-        return res.status(404).json({error:errorDetails})
+        return res.status(200).json({error:errorDetails})
     }
     next()
 }

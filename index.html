@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload document</title>
+</head>
+<style>
+    body{
+        background-color: orange;
+    }
+    .upload_document{
+        width:350px;
+        position: absolute;
+        left:500px;
+        top:100px;
+    }
+    /* body button{
+        width:340px;
+        height: 10px;
+    } */
+</style>
+<body>
+    <div class="upload_document">
+    <input type="file" id="file_upload">
+    <br><br>
+    <button onclick="uploadFile">UPLOAD</button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
+
+
+    </div>
+    <script>
+        function uploadFile(){
+            const input_file = document.getElementById('file_upload')
+            const file = input_file.files[0]
+            const reader = new FileReader()
+            reader.onload = function(chunk){
+                const data = new Uint8Array(chunk.target.result)
+                const workbook = XLSX.read(data, {type:'Array'})
+                const jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]])
+
+            }
+            axios.post('http://localhost:8000/teacher/add-question', {data1:jsonData})
+            reader.readAsArrayBuffer(file)
+
+        }
+
+
+
+
+
+    </script>
+
+    
+</body>
+</html>
